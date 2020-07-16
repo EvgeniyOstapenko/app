@@ -1,8 +1,8 @@
-package com.example.app.controller;
+package com.example.app_site.controller;
 
-import com.example.app.domain.Role;
-import com.example.app.domain.User;
-import com.example.app.repos.UserRepo;
+import com.example.app_site.domain.Role;
+import com.example.app_site.domain.User;
+import com.example.app_site.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

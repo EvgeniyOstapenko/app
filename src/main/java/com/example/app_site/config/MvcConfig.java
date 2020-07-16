@@ -1,4 +1,4 @@
-package com.example.app.config;
+package com.example.app_site.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
-package com.example.app.service;
+package com.example.app_site.service;
 
-import com.example.app.repos.UserRepo;
+import com.example.app_site.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
