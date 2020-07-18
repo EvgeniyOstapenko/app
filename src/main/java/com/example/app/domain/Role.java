@@ -1,4 +1,4 @@
-package com.example.app_site.domain;
+package com.example.app.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 

@@ -1,8 +1,8 @@
-package com.example.app_site.controller;
+package com.example.app.controller;
 
-import com.example.app_site.domain.Message;
-import com.example.app_site.domain.User;
-import com.example.app_site.repos.MessageRepo;
+import com.example.app.domain.Message;
+import com.example.app.domain.User;
+import com.example.app.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

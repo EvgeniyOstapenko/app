@@ -1,4 +1,4 @@
-package com.example.app_site.domain;
+package com.example.app.domain;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
