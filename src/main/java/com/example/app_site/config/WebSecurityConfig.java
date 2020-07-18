@@ -1,6 +1,6 @@
-package com.example.app.config;
+package com.example.app_site.config;
 
-import com.example.app.service.UserService;
+import com.example.app_site.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
