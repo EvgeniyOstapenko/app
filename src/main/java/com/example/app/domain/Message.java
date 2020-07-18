@@ -1,8 +1,13 @@
 package com.example.app.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
+@AllArgsConstructor
 public class Message {
 
     @Id

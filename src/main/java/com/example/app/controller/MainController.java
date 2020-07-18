@@ -23,7 +23,7 @@ public class MainController {
     @Autowired
     private MessageRepo messageRepo;
     @Value("${upload.path}")
-    private static String uploadPath = "/C:/Users/Evgeniy/Desktop/app/uploads";
+    private String uploadPath;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -62,7 +62,7 @@ public class MainController {
         return "main";
     }
 
-    private static void addFileToMessage(MultipartFile picture, Message message) throws IOException {
+    private void addFileToMessage(MultipartFile picture, Message message) throws IOException {
         if (picture != null && !picture.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
 
