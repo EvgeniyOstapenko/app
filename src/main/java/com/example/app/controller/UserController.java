@@ -2,61 +2,67 @@ package com.example.app.controller;
 
 import com.example.app.domain.Role;
 import com.example.app.domain.User;
-import com.example.app.repos.UserRepo;
+import com.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model) {
-        model.addAttribute("users", userRepo.findAll());
+        model.addAttribute("users", userService.findAll());
+
         return "userList";
     }
 
-    @GetMapping("{userId}")
-    public String userEditForm(@PathVariable Long userId, Model model) {
-        User user = userRepo.findById(userId).orElse(null);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("{user}")
+    public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+
         return "userEdit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String userSave(
             @RequestParam String username,
             @RequestParam Map<String, String> form,
-            @RequestParam Long userId
+            @RequestParam("userId") User user
     ) {
-        User user = userRepo.findById(userId).orElse(null);
-        user.setUsername(username);
+        userService.saveUser(user, username, form);
 
-        addRolesToUser(form, user);
-
-        userRepo.save(user);
         return "redirect:/user";
     }
 
-    private static void addRolesToUser(@RequestParam Map<String, String> form, User user) {
-        Set<String> allPossibleRoles = Arrays.stream(Role.values())
-                .map(Role::name).collect(Collectors.toSet());
+    @GetMapping("profile")
+    public String getProfile(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("email", user.getEmail());
 
-        user.getRoles().clear();
+        return "profile";
+    }
 
-        form.keySet().stream().filter(allPossibleRoles::contains)
-                .forEach(newKey -> user.getRoles().add(Role.valueOf(newKey)));
+    @PostMapping("profile")
+    public String updateProfile(
+            @AuthenticationPrincipal User user,
+            @RequestParam String password,
+            @RequestParam String email
+    ) {
+        userService.updateProfile(user, password, email);
+
+        return "redirect:/user/profile";
     }
 }

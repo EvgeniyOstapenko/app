@@ -1,6 +1,5 @@
 package com.example.app.domain;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +9,6 @@ import java.util.Set;
 
 
 @Entity
-@Data
 @Table(name = "usr")
 public class User implements UserDetails {
     @Id
