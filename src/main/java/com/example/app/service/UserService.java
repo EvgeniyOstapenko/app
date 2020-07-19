@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -17,9 +18,10 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
-
     @Autowired
     private MailSender mailSender;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,6 +30,10 @@ public class UserService implements UserDetailsService {
 
     public User getUserById(Long userId) {
         return userRepo.findById(userId).orElse(null);
+    }
+
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     public boolean addUser(User user) {
@@ -40,6 +46,7 @@ public class UserService implements UserDetailsService {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepo.save(user);
         sendMessageToUserEmail(user);
@@ -56,10 +63,6 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(null);
         userRepo.save(user);
         return true;
-    }
-
-    public List<User> findAll() {
-        return userRepo.findAll();
     }
 
     public void saveUser(User user, String editedUsername, Map<String, String> form) {
@@ -97,6 +100,7 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(editedPassword)) {
             user.setPassword(editedPassword);
         }
+        user.setActivationCode(null);
         userRepo.save(user);
 
         if (isEmailChanged) {
