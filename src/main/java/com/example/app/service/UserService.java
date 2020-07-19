@@ -26,6 +26,10 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
+    public User getUserById(Long userId) {
+        return userRepo.findById(userId).orElse(null);
+    }
+
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
@@ -38,7 +42,7 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(UUID.randomUUID().toString());
 
         userRepo.save(user);
-        sendMessage(user);
+        sendMessageToUserEmail(user);
         return true;
     }
 
@@ -58,8 +62,8 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(User user, String username, Map<String, String> form) {
-        user.setUsername(username);
+    public void saveUser(User user, String editedUsername, Map<String, String> form) {
+        user.setUsername(editedUsername);
 
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
@@ -76,31 +80,31 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String editedPassword, String editedEmail) {
         String userEmail = user.getEmail();
 
-        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                (userEmail != null && !userEmail.equals(email));
+        boolean isEmailChanged = (editedEmail != null && !editedEmail.equals(userEmail)) ||
+                (userEmail != null && !userEmail.equals(editedEmail));
 
         if (isEmailChanged) {
-            user.setEmail(email);
+            user.setEmail(editedEmail);
 
-            if (!StringUtils.isEmpty(email)) {
+            if (!StringUtils.isEmpty(editedEmail)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
 
-        if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+        if (!StringUtils.isEmpty(editedPassword)) {
+            user.setPassword(editedPassword);
         }
         userRepo.save(user);
 
         if (isEmailChanged) {
-            sendMessage(user);
+            sendMessageToUserEmail(user);
         }
     }
 
-    private void sendMessage(User user) {
+    private void sendMessageToUserEmail(User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
