@@ -100,8 +100,6 @@ public class UserController {
 
         userRepo.save(user);
 
-        System.out.println(1111111);
-
         if (isEmailChanged) {
             sendMessageToUserEmail(user);
         }
