@@ -21,6 +21,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model) {
+
         model.addAttribute("users", userService.findAll());
         return "userList";
     }
@@ -28,41 +29,39 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{userId}")
     public String userEditForm(@PathVariable Long userId, Model model) {
+
         User user = userService.getUserById(userId);
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+
         return "userEdit";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
-    public String userSave(
-            @RequestParam String editedUsername,
-            @RequestParam Map<String, String> form,
-            @RequestParam Long userId
-    ) {
+    public String userSave(@RequestParam String editedUsername,
+                           @RequestParam Map<String, String> form,
+                           @RequestParam Long userId) {
+
         User user = userService.getUserById(userId);
         userService.saveUser(user, editedUsername, form);
-
         return "redirect:/user";
     }
 
     @GetMapping("profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
+
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
-
         return "profile";
     }
 
     @PostMapping("profile")
-    public String updateProfile(
-            @AuthenticationPrincipal User user,
-            @RequestParam String password,
-            @RequestParam String email
-    ) {
-        userService.updateProfile(user, password, email);
+    public String updateProfile(@AuthenticationPrincipal User user,
+                                @RequestParam String password,
+                                @RequestParam String email) {
 
+        userService.updateProfile(user, password, email);
         return "redirect:/user/profile";
     }
 }

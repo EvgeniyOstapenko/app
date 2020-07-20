@@ -1,8 +1,10 @@
 package com.example.app.domain;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @AllArgsConstructor
@@ -12,7 +14,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please fill in the message")
+    @Length(max = 2048, message = "Message too long (more than 2kB)")
     private String text;
+    @Length(max = 255, message = "Message too long (more than 255)")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,7 +35,7 @@ public class Message {
         this.tag = tag;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
     }
 

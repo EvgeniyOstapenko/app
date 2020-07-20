@@ -25,7 +25,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
+
+        if(user == null){
+            throw new UsernameNotFoundException("User not found");
+        }
     }
 
     public User getUserById(Long userId) {
@@ -100,7 +104,7 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(editedPassword)) {
             user.setPassword(editedPassword);
         }
-        user.setActivationCode(null);
+
         userRepo.save(user);
 
         if (isEmailChanged) {
