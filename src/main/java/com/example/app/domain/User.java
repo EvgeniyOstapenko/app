@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private String password;
     @Transient
     @NotBlank(message = "Password confirmation cannot be empty")
-    private String password2;
+    private String passwordV;
     private boolean active;
     @Email(message = "Email is not correct")
     @NotBlank(message = "Email cannot be empty")
@@ -119,11 +119,11 @@ public class User implements UserDetails {
         this.activationCode = activationCode;
     }
 
-    public String getPassword2() {
-        return password2;
+    public String getPasswordV() {
+        return passwordV;
     }
 
-    public void setPassword2(String password2) {
-        this.password2 = password2;
+    public void setPasswordV(String passwordV) {
+        this.passwordV = passwordV;
     }
 }

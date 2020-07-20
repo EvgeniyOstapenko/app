@@ -30,6 +30,8 @@ public class UserService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }
+
+        return user;
     }
 
     public User getUserById(Long userId) {
@@ -47,7 +49,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setActive(true);
+        user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -64,7 +66,9 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
+        user.setPasswordV(user.getPassword());
         user.setActivationCode(null);
+        user.setActive(true);
         userRepo.save(user);
         return true;
     }
@@ -102,9 +106,10 @@ public class UserService implements UserDetailsService {
         }
 
         if (!StringUtils.isEmpty(editedPassword)) {
-            user.setPassword(editedPassword);
+            String encodedPassword = passwordEncoder.encode(editedPassword);
+            user.setPassword(encodedPassword);
+            user.setPasswordV(encodedPassword);
         }
-
         userRepo.save(user);
 
         if (isEmailChanged) {

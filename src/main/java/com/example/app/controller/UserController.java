@@ -2,21 +2,32 @@ package com.example.app.controller;
 
 import com.example.app.domain.Role;
 import com.example.app.domain.User;
+import com.example.app.repos.UserRepo;
+import com.example.app.service.MailSender;
 import com.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private MailSender mailSender;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
@@ -61,7 +72,53 @@ public class UserController {
                                 @RequestParam String password,
                                 @RequestParam String email) {
 
-        userService.updateProfile(user, password, email);
+//        userService.updateProfile(user, password, email);
+
+
+        String userEmail = user.getEmail();
+
+        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
+                (userEmail != null && !userEmail.equals(email));
+
+        if (isEmailChanged) {
+            user.setEmail(email);
+
+            if (!StringUtils.isEmpty(email)) {
+                user.setActivationCode(UUID.randomUUID().toString());
+            }
+        }
+
+        if (!StringUtils.isEmpty(password)) {
+            String encodedPassword = passwordEncoder.encode(password);
+            user.setPassword(encodedPassword);
+            user.setPasswordV(user.getPassword());
+        }
+
+
+        user.setPassword("1");
+        user.setPasswordV(null);
+
+        userRepo.save(user);
+
+        System.out.println(1111111);
+
+        if (isEmailChanged) {
+            sendMessageToUserEmail(user);
+        }
+
         return "redirect:/user/profile";
+    }
+
+    public void sendMessageToUserEmail(User user) {
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = String.format(
+                    "Hello, %s! \n" +
+                            "Welcome to Sweater. Please, visit next link: http://localhost:8081/activate/%s",
+                    user.getUsername(),
+                    user.getActivationCode()
+            );
+
+            mailSender.send(user.getEmail(), "Activation code", message);
+        }
     }
 }

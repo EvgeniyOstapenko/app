@@ -3,6 +3,7 @@ package com.example.app.controller;
 import com.example.app.domain.Message;
 import com.example.app.domain.User;
 import com.example.app.repos.MessageRepo;
+import com.example.app.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,8 @@ public class MainController {
     private MessageRepo messageRepo;
     @Value("${upload.path}")
     private String uploadPath;
+    @Autowired
+    private UserRepo userRepo;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
