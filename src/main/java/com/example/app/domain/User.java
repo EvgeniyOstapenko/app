@@ -21,7 +21,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Password cannot be empty")
     private String password;
     @Transient
-//    @NotBlank(message = "Password confirmation cannot be empty", groups = TransientField.class)
     @NotBlank(message = "Password confirmation cannot be empty")
     private String password2;
     private boolean active;
@@ -127,7 +126,6 @@ public class User implements UserDetails {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-
 
     @PostLoad
     private void postLoadFunction1(){
