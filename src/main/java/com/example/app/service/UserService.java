@@ -66,7 +66,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setPasswordV(user.getPassword());
+//        user.setPassword2(user.getPassword());
         user.setActivationCode(null);
         user.setActive(true);
         userRepo.save(user);
@@ -106,9 +106,7 @@ public class UserService implements UserDetailsService {
         }
 
         if (!StringUtils.isEmpty(editedPassword)) {
-            String encodedPassword = passwordEncoder.encode(editedPassword);
-            user.setPassword(encodedPassword);
-            user.setPasswordV(encodedPassword);
+            user.setPassword(passwordEncoder.encode(editedPassword));
         }
         userRepo.save(user);
 

@@ -11,11 +11,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -72,51 +70,7 @@ public class UserController {
                                 @RequestParam String password,
                                 @RequestParam String email) {
 
-//        userService.updateProfile(user, password, email);
-
-
-        String userEmail = user.getEmail();
-
-        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                (userEmail != null && !userEmail.equals(email));
-
-        if (isEmailChanged) {
-            user.setEmail(email);
-
-            if (!StringUtils.isEmpty(email)) {
-                user.setActivationCode(UUID.randomUUID().toString());
-            }
-        }
-
-        if (!StringUtils.isEmpty(password)) {
-            String encodedPassword = passwordEncoder.encode(password);
-            user.setPassword(encodedPassword);
-            user.setPasswordV(user.getPassword());
-        }
-
-
-        user.setPassword("1");
-        user.setPasswordV(null);
-
-        userRepo.save(user);
-
-        if (isEmailChanged) {
-            sendMessageToUserEmail(user);
-        }
-
+        userService.updateProfile(user, password, email);
         return "redirect:/user/profile";
-    }
-
-    public void sendMessageToUserEmail(User user) {
-        if (!StringUtils.isEmpty(user.getEmail())) {
-            String message = String.format(
-                    "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http://localhost:8081/activate/%s",
-                    user.getUsername(),
-                    user.getActivationCode()
-            );
-
-            mailSender.send(user.getEmail(), "Activation code", message);
-        }
     }
 }
