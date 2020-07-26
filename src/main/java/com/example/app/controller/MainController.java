@@ -98,7 +98,7 @@ public class MainController {
     public String userMessages(@AuthenticationPrincipal User currentUser,
                                @PathVariable Long userId,
                                Model model,
-                               @RequestParam(required = false) Long messageId) {
+                               @RequestParam(required = false, name = "message") Long messageId) {
 
         if (messageId != null){
             Message message = messageRepo.findById(messageId).orElseGet(null);
@@ -113,25 +113,30 @@ public class MainController {
         return "userMessages";
     }
 
-    @PostMapping("/user-messages/{user}")
+    @PostMapping("/user-messages/{userId}")
     public String updateMessage(@AuthenticationPrincipal User currentUser,
                                 @PathVariable Long userId,
-                                @RequestParam("id") Message message,
+                                @RequestParam("id") Long messageId,
+                                Model model,
                                 @RequestParam("text") String text,
                                 @RequestParam("tag") String tag,
                                 @RequestParam("file") MultipartFile file) throws IOException {
-        if (message.getAuthor().equals(currentUser)) {
-            if (!StringUtils.isEmpty(text)) {
-                message.setText(text);
-            }
 
-            if (!StringUtils.isEmpty(tag)) {
-                message.setTag(tag);
-            }
+            Message message = messageRepo.findById(messageId).orElseGet(null);
+            model.addAttribute("message", message);
 
-            saveFile(message, file);
-            messageRepo.save(message);
-        }
+            if (message.getAuthor().equals(currentUser)) {
+                if (!StringUtils.isEmpty(text)) {
+                    message.setText(text);
+                }
+
+                if (!StringUtils.isEmpty(tag)) {
+                    message.setTag(tag);
+                }
+
+                saveFile(message, file);
+                messageRepo.save(message);
+            }
 
         return "redirect:/user-messages/" + userId;
     }
