@@ -1,14 +1,15 @@
 package com.example.app.domain;
 
-import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@AllArgsConstructor
 public class Message {
+
+    public Message() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +26,6 @@ public class Message {
     private User author;
 
     private String filename;
-
-    public Message() {
-    }
 
     public Message(String text, String tag, User user) {
         this.author = user;
