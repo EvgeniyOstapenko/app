@@ -47,19 +47,15 @@ public class User implements UserDetails {
     private Set<Message> messages;
 
     @ManyToMany
-    @JoinTable(
-            name = "user_subscriptions",
-            joinColumns = { @JoinColumn(name = "channel_id") },
-            inverseJoinColumns = { @JoinColumn(name = "subscriber_id")}
-    )
+    @JoinTable(name = "user_subscriptions",
+               joinColumns = { @JoinColumn(name = "channel_id") },
+               inverseJoinColumns = { @JoinColumn(name = "subscriber_id")})
     private Set<User> subscribers = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(
-            name = "user_subscriptions",
-            joinColumns = { @JoinColumn(name = "subscriber_id") },
-            inverseJoinColumns = { @JoinColumn(name = "channel_id")}
-    )
+    @JoinTable(name = "user_subscriptions",
+               joinColumns = { @JoinColumn(name = "subscriber_id") },
+               inverseJoinColumns = { @JoinColumn(name = "channel_id")})
     private Set<User> subscriptions = new HashSet<>();
 
     @Override

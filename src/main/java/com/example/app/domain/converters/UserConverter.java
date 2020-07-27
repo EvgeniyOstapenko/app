@@ -1,5 +1,6 @@
-package com.example.app.domain;
+package com.example.app.domain.converters;
 
+import com.example.app.domain.User;
 import com.example.app.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -12,7 +13,7 @@ public class UserConverter implements Converter<String, User> {
     private UserRepo userRepo;
 
     @Override
-    public User convert(String source) {
-        return userRepo.findById(Long.valueOf(source)).orElse(null);
+    public User convert(String id) {
+        return userRepo.findById(Long.valueOf(id)).orElse(null);
     }
 }

@@ -58,6 +58,7 @@ public class MainController {
                              BindingResult bindingResult,
                              Model model,
                              @RequestParam("file") MultipartFile file) throws IOException {
+
         message.setAuthor(user);
 
         if (bindingResult.hasErrors()) {
@@ -77,7 +78,9 @@ public class MainController {
         return "main";
     }
 
-    private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
+    private void saveFile(@Valid Message message,
+                          @RequestParam("file") MultipartFile file) throws IOException {
+
         if (file != null && !file.getOriginalFilename().isEmpty()) {
 
             File uploadDir = new File(uploadPath);
@@ -94,20 +97,15 @@ public class MainController {
         }
     }
 
-    @GetMapping("/user-messages/{userId}")
+    @GetMapping("/user-messages/{user}")
     public String userMessages(@AuthenticationPrincipal User currentUser,
-                               @PathVariable Long userId,
+                               @PathVariable User user,
                                Model model,
-                               @RequestParam(required = false, name = "message") Long messageId) {
+                               @RequestParam(required = false) Message message) {
 
-        if (messageId != null){
-            Message message = messageRepo.findById(messageId).orElseGet(null);
-            model.addAttribute("message", message);
-        }
-
-        User user = userRepo.findById(userId).orElse(null);
         Set<Message> messages = user.getMessages();
 
+        model.addAttribute("message", message);
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
         model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("userChannel", user);
