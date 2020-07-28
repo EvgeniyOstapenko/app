@@ -1,10 +1,7 @@
 package com.example.app.domain;
 
-import com.example.app.repos.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.core.convert.converter.Converter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
