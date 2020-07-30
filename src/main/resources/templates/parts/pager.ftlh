@@ -1,4 +1,5 @@
 <#macro pager url page>
+
     <#if page.getTotalPages() gt 7>
         <#assign
             totalPages = page.getTotalPages()

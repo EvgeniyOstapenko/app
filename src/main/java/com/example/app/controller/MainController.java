@@ -1,5 +1,7 @@
 package com.example.app.controller;
 
+import com.example.app.controller.utils.ControllerUtils;
+import com.example.app.controller.utils.PaginationUtils;
 import com.example.app.domain.Message;
 import com.example.app.domain.User;
 import com.example.app.repos.MessageRepo;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -117,6 +120,10 @@ public class MainController {
         Set<Message> messages = user.getMessages();
         Page<Message> page = messageRepo.findAll(pageable);
 
+//        List bodyList = PaginationUtils.formPageBord(9, page.getNumber());
+//        String body = bodyList.toString();
+
+//        model.addAttribute("user", user);
         model.addAttribute("page", page);
         model.addAttribute("url", "/user-messages/" + user.getId().toString());
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
