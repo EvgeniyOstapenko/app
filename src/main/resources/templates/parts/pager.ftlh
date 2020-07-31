@@ -6,10 +6,10 @@
                 <a class="page-link" href="#" tabindex="-1">Страницы</a>
             </li>
 
-            <li class="page-item" disabled>
+            <li class="page-item">
                     <a class="page-link" href="${url}?page=${page.getNumber() - 1}&size=${page.getSize()}" tabindex="-1">PREV</a>
             </li>
-            <li class="page-item" disabled>
+            <li class="page-item">
                 <a class="page-link" href="${url}?page=${page.getNumber() + 1}&size=${page.getSize()}" tabindex="-1">NEXT</a>
             </li>
 

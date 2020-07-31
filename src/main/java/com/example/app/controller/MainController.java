@@ -61,7 +61,6 @@ public class MainController {
 
         List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
-
         model.addAttribute("pageBord", pageBord);
         model.addAttribute("users", user);
 
@@ -77,6 +76,7 @@ public class MainController {
                              @Valid Message message,
                              BindingResult bindingResult,
                              Model model,
+                             @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
                              @RequestParam("file") MultipartFile file) throws IOException {
 
         message.setAuthor(user);
@@ -89,6 +89,11 @@ public class MainController {
         } else {
             saveFile(message, file);
 
+            Page<Message> page = messageRepo.findAll(pageable);
+            model.addAttribute("page", page);
+            model.addAttribute("url", "/main");
+            List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
+            model.addAttribute("pageBord", pageBord);
             model.addAttribute("message", null);
             messageRepo.save(message);
         }
@@ -129,8 +134,7 @@ public class MainController {
 
         List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
-
-
+        model.addAttribute("message", message);
         model.addAttribute("pageBord", pageBord);
         model.addAttribute("page", page);
         model.addAttribute("url", "/user-messages/" + user.getId().toString());
