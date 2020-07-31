@@ -59,7 +59,10 @@ public class MainController {
             page = messageRepo.findAll(pageable);
         }
 
+        List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
+
+        model.addAttribute("pageBord", pageBord);
         model.addAttribute("users", user);
 
         model.addAttribute("page", page);
@@ -127,8 +130,8 @@ public class MainController {
         List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
 
-        model.addAttribute("pageBord", pageBord);
 
+        model.addAttribute("pageBord", pageBord);
         model.addAttribute("page", page);
         model.addAttribute("url", "/user-messages/" + user.getId().toString());
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
