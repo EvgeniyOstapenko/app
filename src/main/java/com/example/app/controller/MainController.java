@@ -26,10 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -61,8 +58,14 @@ public class MainController {
 
         List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
+
+        List<Message> messages = page.getContent();
+
+        model.addAttribute("messages", messages);
+
         model.addAttribute("pageBord", pageBord);
         model.addAttribute("users", user);
+
 
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
@@ -91,6 +94,11 @@ public class MainController {
 
             Page<Message> page = messageRepo.findAll(pageable);
             model.addAttribute("page", page);
+
+            List<Message> messages = page.getContent();
+
+            model.addAttribute("messages", messages);
+
             model.addAttribute("url", "/main");
             List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
             model.addAttribute("pageBord", pageBord);
