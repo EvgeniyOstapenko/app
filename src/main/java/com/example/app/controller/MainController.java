@@ -46,7 +46,8 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter,
+    public String main(@AuthenticationPrincipal User user,
+                       @RequestParam(required = false, defaultValue = "") String filter,
                        Model model,
                        @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable)
     {
@@ -57,6 +58,9 @@ public class MainController {
         } else {
             page = messageRepo.findAll(pageable);
         }
+
+
+        model.addAttribute("users", user);
 
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
@@ -120,10 +124,12 @@ public class MainController {
         Set<Message> messages = user.getMessages();
         Page<Message> page = messageRepo.findAll(pageable);
 
-//        List bodyList = PaginationUtils.formPageBord(9, page.getNumber());
-//        String body = bodyList.toString();
+        List bodyList = PaginationUtils.formPageBord(9, page.getNumber());
+        String body = bodyList.toString();
 
-//        model.addAttribute("user", user);
+
+
+        model.addAttribute("u", 9);
         model.addAttribute("page", page);
         model.addAttribute("url", "/user-messages/" + user.getId().toString());
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
