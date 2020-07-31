@@ -124,12 +124,11 @@ public class MainController {
         Set<Message> messages = user.getMessages();
         Page<Message> page = messageRepo.findAll(pageable);
 
-        List bodyList = PaginationUtils.formPageBord(9, page.getNumber());
-        String body = bodyList.toString();
+        List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
 
 
+        model.addAttribute("pageBord", pageBord);
 
-        model.addAttribute("u", 9);
         model.addAttribute("page", page);
         model.addAttribute("url", "/user-messages/" + user.getId().toString());
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());

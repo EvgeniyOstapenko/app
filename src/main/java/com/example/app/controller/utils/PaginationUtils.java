@@ -19,8 +19,6 @@ public class PaginationUtils {
         formCenter(arr, pageBoard, leftRange, rightRange);
         formTail(pageBoard, rightRange, tail);
 
-
-        System.out.println(pageBoard);
         return pageBoard;
     }
 
