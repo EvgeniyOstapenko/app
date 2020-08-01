@@ -46,8 +46,7 @@ public class MainController {
     public String main(@AuthenticationPrincipal User user,
                        @RequestParam(required = false, defaultValue = "") String filter,
                        Model model,
-                       @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable)
-    {
+                       @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Message> page;
 
         if (filter != null && !filter.isEmpty()) {
@@ -92,9 +91,9 @@ public class MainController {
         } else {
             saveFile(message, file);
 
+            messageRepo.save(message);
             Page<Message> page = messageRepo.findAll(pageable);
             model.addAttribute("page", page);
-
             List<Message> messages = page.getContent();
 
             model.addAttribute("messages", messages);
@@ -103,7 +102,7 @@ public class MainController {
             List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
             model.addAttribute("pageBord", pageBord);
             model.addAttribute("message", null);
-            messageRepo.save(message);
+
         }
 
         Iterable<Message> messages = messageRepo.findAll();
