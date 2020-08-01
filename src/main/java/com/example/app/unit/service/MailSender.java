@@ -1,4 +1,4 @@
-package com.example.app.service;
+package com.example.app.unit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

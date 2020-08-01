@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.intigration;
 
 import com.example.app.controller.MainController;
 import org.junit.Test;

@@ -3,7 +3,7 @@ package com.example.app.controller;
 import com.example.app.controller.utils.ControllerUtils;
 import com.example.app.domain.User;
 import com.example.app.domain.dto.CaptchaResponseDto;
-import com.example.app.service.UserService;
+import com.example.app.unit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.example.app.service;
+package com.example.app.unit.service;
 
 import com.example.app.domain.Role;
 import com.example.app.domain.User;
@@ -45,9 +45,7 @@ public class UserService implements UserDetailsService {
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
-        if (userFromDb != null) {
-            return false;
-        }
+        if (userFromDb != null) return false;
 
         user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
