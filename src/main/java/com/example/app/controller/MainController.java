@@ -46,7 +46,7 @@ public class MainController {
     public String main(@AuthenticationPrincipal User user,
                        @RequestParam(required = false, defaultValue = "") String filter,
                        Model model,
-                       @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Message> page;
 
         if (filter != null && !filter.isEmpty()) {
@@ -78,7 +78,7 @@ public class MainController {
                              @Valid Message message,
                              BindingResult bindingResult,
                              Model model,
-                             @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
+                             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
                              @RequestParam("file") MultipartFile file) throws IOException {
 
         message.setAuthor(user);
@@ -115,7 +115,7 @@ public class MainController {
                                @PathVariable User user,
                                Model model,
                                @RequestParam(required = false) Message message,
-                               @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
+                               @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
         Set<Message> messages = user.getMessages();
         Page<Message> page = messageRepo.findAll(pageable);
@@ -144,21 +144,24 @@ public class MainController {
                                 @RequestParam("tag") String tag,
                                 @RequestParam("file") MultipartFile file) throws IOException {
 
-            Message message = messageRepo.findById(messageId).orElseGet(null);
-            model.addAttribute("message", message);
 
-            if (message.getAuthor().equals(currentUser)) {
-                if (!StringUtils.isEmpty(text)) {
-                    message.setText(text);
-                }
+        if (messageId == null) return "redirect:/main";
 
-                if (!StringUtils.isEmpty(tag)) {
-                    message.setTag(tag);
-                }
+        Message message = messageRepo.findById(messageId).orElseGet(null);
+        model.addAttribute("message", message);
 
-                saveFile(message, file);
-                messageRepo.save(message);
+        if (message.getAuthor().equals(currentUser)) {
+            if (!StringUtils.isEmpty(text)) {
+                message.setText(text);
             }
+
+            if (!StringUtils.isEmpty(tag)) {
+                message.setTag(tag);
+            }
+
+            saveFile(message, file);
+            messageRepo.save(message);
+        }
 
         return "redirect:/user-messages/" + userId;
     }
