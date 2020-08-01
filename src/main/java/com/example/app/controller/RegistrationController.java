@@ -54,7 +54,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (bindingResult.hasErrors() || !response.isSuccess()) {
+        if (bindingResult.hasErrors() || response.isSuccess()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
