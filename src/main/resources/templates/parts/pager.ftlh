@@ -19,14 +19,6 @@
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1">Страницы</a>
             </li>
-
-            <li class="page-item">
-                    <a class="page-link" href="${url}?page=${page.getNumber() - 1}&size=${page.getSize()}" tabindex="-1">PREV</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="${url}?page=${page.getNumber() + 1}&size=${page.getSize()}" tabindex="-1">NEXT</a>
-            </li>
-
             <#list body as p>
                 <#if (p - 1) == page.getNumber()>
                     <li class="page-item active">
@@ -38,7 +30,7 @@
                     </li>
                 <#else>
                     <li class="page-item">
-                        <a class="page-link" href="${url}?page=${p - 1}&size=${page.getSize()}" tabindex="-1">${p}</a>
+                        <a class="page-link" href="${url}?page=${p - 1}&amp;size=${page.getSize()}" tabindex="-1">${p}</a>
                     </li>
                 </#if>
             </#list>
@@ -55,7 +47,7 @@
                     </li>
                 <#else>
                     <li class="page-item">
-                        <a class="page-link" href="${url}?page=${page.getNumber()}&size=${c}" tabindex="-1">${c}</a>
+                        <a class="page-link" href="${url}?page=${page.getNumber()}&amp;size=${c}" tabindex="-1">${c}</a>
                     </li>
                 </#if>
             </#list>

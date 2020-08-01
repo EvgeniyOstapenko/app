@@ -91,23 +91,17 @@ public class MainController {
             model.addAttribute("message", message);
         } else {
             saveFile(message, file);
+            model.addAttribute("message", null);
+            messageRepo.save(message);
 
             Page<Message> page = messageRepo.findAll(pageable);
             model.addAttribute("page", page);
 
             List<Message> messages = page.getContent();
-
             model.addAttribute("messages", messages);
-
             model.addAttribute("url", "/main");
-            List pageBord = PaginationUtils.formPageBord(9, page.getNumber());
-            model.addAttribute("pageBord", pageBord);
-            model.addAttribute("message", null);
-            messageRepo.save(message);
         }
 
-        Iterable<Message> messages = messageRepo.findAll();
-        model.addAttribute("messages", messages);
         return "main";
     }
 
@@ -167,7 +161,7 @@ public class MainController {
     private void saveFile(@Valid Message message,
                           @RequestParam("file") MultipartFile file) throws IOException {
 
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
+        if (file != null || !file.getOriginalFilename().isEmpty()) {
 
             File uploadDir = new File(uploadPath);
 
