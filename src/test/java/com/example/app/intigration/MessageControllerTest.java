@@ -54,7 +54,7 @@ public class MessageControllerTest {
     @Test
     public void filterMessageTest() throws Exception {
         this.mockMvc.perform(get("/main").param("filter", "my-tag"))
-//                .andDo(print())
+                .andDo(print())
                 .andExpect(authenticated())
                 .andExpect(xpath("//*[@id='message-list']/div").nodeCount(2))
                 .andExpect(xpath("//*[@id='message-list']/div[@data-id='1']").exists())

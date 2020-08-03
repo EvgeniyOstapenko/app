@@ -37,4 +37,5 @@ public class MessageService {
     public Iterable<Message> findAll() {
         return messageRepo.findAll();
     }
+
 }
