@@ -1,4 +1,4 @@
-package com.example.app.unit.service;
+package com.example.app.service;
 
 import com.example.app.domain.Role;
 import com.example.app.domain.User;
