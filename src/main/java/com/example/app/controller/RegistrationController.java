@@ -6,6 +6,7 @@ import com.example.app.domain.dto.CaptchaResponseDto;
 import com.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,24 +38,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@RequestParam("g-recaptcha-response") String captchaResponse,
-                          @Valid User user,
+    public String addUser(@Valid User user,
                           BindingResult bindingResult,
                           Model model) {
-        String url = String.format(CAPTCHA_URL, secret, captchaResponse);
-        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.EMPTY_LIST, CaptchaResponseDto.class);
-
-        if(!response.isSuccess()){
-            model.addAttribute("captchaError", "Fill captcha");
-        }
-
 
         if (user.getPassword() != null && !user.getPassword().equals(user.getPassword2())) {
             model.addAttribute("passwordError", "Passwords are different!");
             return "registration";
         }
 
-        if (bindingResult.hasErrors() || !response.isSuccess()) {
+        if (bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
