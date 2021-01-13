@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);
 
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
 
@@ -49,7 +49,15 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) return false;
 
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+
+        if (user.getUsername().equals("admin")) {
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(Role.ADMIN);
+            user.setRoles(roles);
+        } else {
+            user.setRoles(Collections.singleton(Role.USER));
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepo.save(user);
