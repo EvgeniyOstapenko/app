@@ -2,7 +2,6 @@ package com.example.app.controller;
 
 import com.example.app.domain.Role;
 import com.example.app.domain.User;
-import com.example.app.service.MailSender;
 import com.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,8 +20,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private MailSender mailSender;
+
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
