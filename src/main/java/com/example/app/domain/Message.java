@@ -27,14 +27,6 @@ public class Message {
 
     private String filename;
 
-    @ManyToMany
-    @JoinTable(
-            name = "message_likes",
-            joinColumns = { @JoinColumn(name = "message_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id")}
-    )
-    private Set<User> likes = new HashSet<>();
-
     public Message() {
     }
 
@@ -82,14 +74,6 @@ public class Message {
 
     public String getFilename() {
         return filename;
-    }
-
-    public Set<User> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Set<User> likes) {
-        this.likes = likes;
     }
 
     public void setFilename(String filename) {

@@ -2,22 +2,18 @@ package com.example.app.controller;
 
 import com.example.app.controller.util.ControllerUtils;
 import com.example.app.domain.User;
-import com.example.app.domain.dto.CaptchaResponseDto;
 import com.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Map;
 
 @Controller

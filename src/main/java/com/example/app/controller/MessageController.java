@@ -4,7 +4,6 @@ import com.example.app.controller.util.ControllerUtils;
 import com.example.app.domain.Message;
 import com.example.app.domain.User;
 import com.example.app.domain.dto.MessageDto;
-import com.example.app.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -26,13 +25,11 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
 public class MessageController {
-    @Autowired
-    private MessageService messageService;
+
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -49,9 +46,9 @@ public class MessageController {
             @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
             @AuthenticationPrincipal User user
     ) {
-        Page<MessageDto> page = messageService.messageList(pageable, filter, user);
 
-        model.addAttribute("page", page);
+
+
         model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
 
@@ -77,14 +74,13 @@ public class MessageController {
         } else {
             saveFile(message, file);
             model.addAttribute("message", null);
-            messageService.save(message);
+
         }
 
-        Page<MessageDto> page = messageService.messageList(pageable, null, user);
-        model.addAttribute("page", page);
 
-        Iterable<Message> messages = messageService.findAll();
-        model.addAttribute("messages", messages);
+
+
+
         model.addAttribute("url", "/main");
 
         return "main";
@@ -98,13 +94,10 @@ public class MessageController {
             @RequestParam(required = false) Message message,
             @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<MessageDto> page = messageService.messageListForUser(pageable, currentUser, author);
+
 
         model.addAttribute("userChannel", author);
-        model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
-        model.addAttribute("subscribersCount", author.getSubscribers().size());
-        model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
-        model.addAttribute("page", page);
+
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(author));
         model.addAttribute("url", "/user-messages/" + author.getId());
@@ -131,7 +124,7 @@ public class MessageController {
             }
 
             saveFile(message, file);
-            messageService.save(message);
+
         }
 
         return "redirect:/user-messages/" + user;
@@ -144,13 +137,6 @@ public class MessageController {
             RedirectAttributes redirectAttributes,
             @RequestHeader(required = false) String referer
     ) {
-        Set<User> likes = message.getLikes();
-
-        if (likes.contains(currentUser)) {
-            likes.remove(currentUser);
-        } else {
-            likes.add(currentUser);
-        }
 
         UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
 

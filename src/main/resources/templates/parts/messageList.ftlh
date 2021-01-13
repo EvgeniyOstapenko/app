@@ -22,7 +22,7 @@
                 <#else>
                 <i class="far fa-heart"></i>
             </#if>
-            ${message.likes}
+
             </a>
             <#if message.author.id == currentUserId>
             <a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
