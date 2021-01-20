@@ -59,17 +59,6 @@ public class MainController {
         return "main";
     }
 
-    private Page<Message> getPage(String filter, Pageable pageable) {
-        Page<Message> page;
-
-        if (filter != null && !filter.isEmpty()) {
-            page = messageRepo.findByTag(filter, pageable);
-        } else {
-            page = messageRepo.findAll(pageable);
-        }
-        return page;
-    }
-
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
@@ -116,7 +105,6 @@ public class MainController {
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
             file.transferTo(new File(uploadPath + "/" + resultFilename));
-
             message.setFilename(resultFilename);
         }
     }
@@ -140,10 +128,20 @@ public class MainController {
             }
 
             saveFile(message, file);
-
             messageRepo.save(message);
         }
 
         return "redirect:/user-messages/" + user;
+    }
+
+    private Page<Message> getPage(String filter, Pageable pageable) {
+        Page<Message> page;
+
+        if (filter != null && !filter.isEmpty()) {
+            page = messageRepo.findByTag(filter, pageable);
+        } else {
+            page = messageRepo.findAll(pageable);
+        }
+        return page;
     }
 }
