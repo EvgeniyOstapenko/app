@@ -50,13 +50,7 @@ public class MainController {
             Model model,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<Message> page;
-
-        if (filter != null && !filter.isEmpty()) {
-            page = messageRepo.findByTag(filter, pageable);
-        } else {
-            page = messageRepo.findAll(pageable);
-        }
+        Page<Message> page = getPage(filter, pageable);
 
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
@@ -65,13 +59,26 @@ public class MainController {
         return "main";
     }
 
+    private Page<Message> getPage(String filter, Pageable pageable) {
+        Page<Message> page;
+
+        if (filter != null && !filter.isEmpty()) {
+            page = messageRepo.findByTag(filter, pageable);
+        } else {
+            page = messageRepo.findAll(pageable);
+        }
+        return page;
+    }
+
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(required = false, defaultValue = "") String filter,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) throws IOException {
         message.setAuthor(user);
 
@@ -84,13 +91,15 @@ public class MainController {
             saveFile(message, file);
 
             model.addAttribute("message", null);
-
             messageRepo.save(message);
         }
 
         Iterable<Message> messages = messageRepo.findAll();
+        Page<Message> page = getPage(filter, pageable);
 
+        model.addAttribute("page", page);
         model.addAttribute("messages", messages);
+        model.addAttribute("url", "/main");
 
         return "main";
     }
@@ -110,26 +119,6 @@ public class MainController {
 
             message.setFilename(resultFilename);
         }
-    }
-
-    @GetMapping("/user-messages/{user}")
-    public String userMessges(
-            @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
-            Model model,
-            @RequestParam(required = false) Message message
-    ) {
-        Set<Message> messages = user.getMessages();
-
-        model.addAttribute("userChannel", user);
-//        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-//        model.addAttribute("subscribersCount", user.getSubscribers().size());
-//        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("messages", messages);
-        model.addAttribute("message", message);
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
-
-        return "userMessages";
     }
 
     @PostMapping("/user-messages/{user}")
