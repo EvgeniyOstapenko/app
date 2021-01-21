@@ -52,7 +52,9 @@ public class MainController {
 
         model.addAttribute("page", page);
         model.addAttribute("url", "/main");
-        model.addAttribute("filter", filter);
+//        model.addAttribute("filter", filter);
+
+        model.addAttribute("image", "dfgfdg");
 
         return "main";
     }
@@ -87,6 +89,7 @@ public class MainController {
         model.addAttribute("page", page);
         model.addAttribute("messages", messages);
         model.addAttribute("url", "/main");
+        model.addAttribute("image", "fgg");
 
         return "main";
     }
