@@ -8,7 +8,7 @@
     <#list page.content as message>
     <div class="card my-3" data-id="${message.id}">
         <#if message.filename??>
-        <img src="/img/${message.filename}" class="card-img-top" data-target="#carouselExample" data-slide-to="3"/>
+        <img src="/img/${message.filename}" class="card-img-top" data-target="#carouselExample" data-slide-to="${message.id}"/>
     </#if>
     <div class="m-2">
         <span>${message.text}</span><br/>
@@ -52,6 +52,9 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
             <li data-target="#carouselExample" data-slide-to="1"></li>
             <li data-target="#carouselExample" data-slide-to="2"></li>
             <li data-target="#carouselExample" data-slide-to="3"></li>
+            <li data-target="#carouselExample" data-slide-to="4"></li>
+            <li data-target="#carouselExample" data-slide-to="5"></li>
+            <li data-target="#carouselExample" data-slide-to="5"></li>
           </ol>
           <div class="carousel-inner">
 
@@ -59,12 +62,11 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
 
 
           <#list page.content as message>
-          <div class="card my-3" data-id="${message.id}">
-              <img src="/img/${message.filename}" class="card-img-top" data-target="#carouselExample" data-slide-to="3"/>
+          <div class="carousel-item active">
+              <img class="d-block w-100" src="/img/${message.filename}"/>
           </div>
 
           </#list>
-
 
 
           </div>
@@ -84,5 +86,11 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
     </div>
   </div>
 </div>
+
+
+
+
+
+
 
 <@p.pager url page />
