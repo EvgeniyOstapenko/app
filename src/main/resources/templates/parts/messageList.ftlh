@@ -4,21 +4,30 @@
 <@p.pager url page/>
 
 
-<div class="row" id="gallery" data-toggle="modal" data-target="#exampleModal">
-
-    <div class="col-12 col-sm-6 col-lg-3">
-      <img class="w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="First slide" data-target="#carouselExample" data-slide-to="0">
+<div class="card-columns" id="message-list" data-toggle="modal" data-target="#exampleModal">
+    <#list page.content as message>
+    <div class="card my-3" data-id="${message.id}">
+        <#if message.filename??>
+        <img src="/img/${message.filename}" class="card-img-top" data-target="#carouselExample" data-slide-to="${message.id}"/>
+    </#if>
+    <div class="m-2">
+        <span>${message.text}</span><br/>
+        <i>#${message.tag}</i>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <img class="w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Second slide" data-target="#carouselExample" data-slide-to="0">
-     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <img class="w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Third slide" data-target="#carouselExample" data-slide-to="0">
+    <div class="card-footer text-muted container">
+        <div class="row">
+            <a class="col align-self-center" href="/user-messages/${message.author.id}">${message.authorName}</a>
+            <#if message.author.id == currentUserId>
+            <a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
+                Edit
+            </a>
+        </#if>
     </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <img class="w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Fourth slide" data-target="#carouselExample" data-slide-to="0">
-    </div>
-
+</div>
+</div>
+<#else>
+No message
+</#list>
 </div>
 
 
@@ -43,23 +52,35 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
             <li data-target="#carouselExample" data-slide-to="1"></li>
             <li data-target="#carouselExample" data-slide-to="2"></li>
             <li data-target="#carouselExample" data-slide-to="3"></li>
+            <li data-target="#carouselExample" data-slide-to="4"></li>
+            <li data-target="#carouselExample" data-slide-to="5"></li>
+            <li data-target="#carouselExample" data-slide-to="6"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Second slide">
+
+
+
+             <div class="carousel-item">
+               <img class="d-block w-100" src="/img/8af0d56b-bb33-457d-8c04-448a972b5a2d.HbAy37dFOkA.jpg" alt="6">
+             </div>
+             <div class="carousel-item">
+               <img class="d-block w-100" src="/img/e889803d-256f-485c-8ad0-1c958ef93e81.ITu8LxNidz8.jpg" alt="5">
              </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Third slide">
+               <img class="d-block w-100" src="/img/419d397b-dba2-4a06-905c-724cab544fdc.HbAy37dFOkA.jpg" alt="4">
+             </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="3">
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="Fourth slide">
+              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="2">
             </div>
-
-
-
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="1">
+             </div>
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="0">
+            </div>
 
           </div>
           <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
@@ -78,10 +99,6 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
     </div>
   </div>
 </div>
-
-
-
-
 
 
 
