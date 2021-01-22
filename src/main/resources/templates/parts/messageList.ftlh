@@ -49,13 +49,13 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
       <div class="modal-body">
         <div id="carouselExample" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
-            <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExample" data-slide-to="1"></li>
-            <li data-target="#carouselExample" data-slide-to="2"></li>
-            <li data-target="#carouselExample" data-slide-to="3"></li>
-            <li data-target="#carouselExample" data-slide-to="4"></li>
+            <li data-target="#carouselExample" data-slide-to="6" class="active"></li>
             <li data-target="#carouselExample" data-slide-to="5"></li>
-            <li data-target="#carouselExample" data-slide-to="6"></li>
+            <li data-target="#carouselExample" data-slide-to="4"></li>
+            <li data-target="#carouselExample" data-slide-to="3"></li>
+            <li data-target="#carouselExample" data-slide-to="2"></li>
+            <li data-target="#carouselExample" data-slide-to="1"></li>
+            <li data-target="#carouselExample" data-slide-to="0"></li>
           </ol>
           <div class="carousel-inner">
 
@@ -72,15 +72,15 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
               <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="q3">
             </div>
 
-            <div class="carousel-item">""
+            <div class="carousel-item">
               <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="q4">
-             </div>""
-            <div class="carousel-item">""
+             </div>
+            <div class="carousel-item">
               <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="q5">
-            </div>""
-            <div class="carousel-item">""
+            </div>
+            <div class="carousel-item">
               <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="q6">
-            </div>""
+            </div>
 
 
           </div>
