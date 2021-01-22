@@ -61,13 +61,13 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
           <div class="carousel-inner">
 
             <div class="carousel-item active">
-              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="q0">
+              <img class="d-block w-100" src="/img/8af0d56b-bb33-457d-8c04-448a972b5a2d.HbAy37dFOkA.jpg.jpg" alt="q0None">
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="q1">
+              <img class="d-block w-100" src="/img/e889803d-256f-485c-8ad0-1c958ef93e81.ITu8LxNidz8.jpg" alt="q1None">
              </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="q2">
+              <img class="d-block w-100" src="/img/419d397b-dba2-4a06-905c-724cab544fdc.HbAy37dFOkA.jpg" alt="q2">
             </div>
             <div class="carousel-item">
               <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="q3">
