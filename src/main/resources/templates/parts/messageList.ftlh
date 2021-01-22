@@ -21,6 +21,16 @@
       <img class="w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="Fourth slide" data-target="#carouselExample" data-slide-to="3">
     </div>
 
+    <div class="col-12 col-sm-6 col-lg-3">
+      <img class="w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="Second slide" data-target="#carouselExample" data-slide-to="4">
+     </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <img class="w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="Third slide" data-target="#carouselExample" data-slide-to="5">
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <img class="w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="Fourth slide" data-target="#carouselExample" data-slide-to="6">
+    </div>
+
 </div>
 
 
@@ -50,21 +60,29 @@ This part is straight out of Bootstrap docs. Just a carousel inside a modal.
           </ol>
           <div class="carousel-inner">
 
-
-
             <div class="carousel-item active">
-              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="First slide">
-            </div>""
+              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="q0">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="q1">
+             </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="q2">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="q3">
+            </div>
+
             <div class="carousel-item">""
-              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="Second slide">
+              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="q4">
              </div>""
             <div class="carousel-item">""
-              <img class="d-block w-100" src="/img/a14fc596-7a30-4d89-8507-137cf3b8554f.HbAy37dFOkA.jpg" alt="Third slide">
+              <img class="d-block w-100" src="/img/3538b3da-cce1-4040-8224-1841ec9ddbf9.ITu8LxNidz8.jpg" alt="q5">
             </div>""
             <div class="carousel-item">""
-              <img class="d-block w-100" src="/img/a29e62e4-3898-4b85-82c0-32ab6a06ea7f.ITu8LxNidz8.jpg" alt="Fourth slide">
+              <img class="d-block w-100" src="/img/315d1638-fe7e-4e60-b959-1b741b4c9275.HbAy37dFOkA.jpg" alt="q6">
             </div>""
-""
+
 
           </div>
           <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
